@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, JSX } from "react";
 import {
   BarChart,
   Bar,
@@ -101,7 +102,7 @@ const ArtCollectionDashboard: React.FC = () => {
               setLoading(false);
             }
           },
-          error: (err) => {
+          error: (err: any) => {
             setError(`Error parsing CSV: ${err.message}`);
             setLoading(false);
           },
@@ -270,7 +271,7 @@ const ArtCollectionDashboard: React.FC = () => {
     data.forEach((item) => {
       if (item.field_physical_form) {
         // Split by delimiters and take first meaningful part
-        let form = String(item.field_physical_form)
+        const form = String(item.field_physical_form)
           .split("|")[0]
           .split("--")[0]
           .trim();
@@ -326,7 +327,7 @@ const ArtCollectionDashboard: React.FC = () => {
               marginBottom: "5px",
             }}
           />
-          <Legend wrapperStyle={{ color: "#FFFFFF" }} /> // Changed to white
+          <Legend wrapperStyle={{ color: "#FFFFFF" }} />
           <Bar
             dataKey="count"
             name="Number of Items"
