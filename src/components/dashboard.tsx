@@ -333,6 +333,7 @@ const ArtCollectionDashboard: React.FC = () => {
             name="Number of Items"
             fill="#f5db37"
             radius={[4, 4, 0, 0]}
+            legendType="none"
           />
         </BarChart>
       </ResponsiveContainer>
@@ -427,7 +428,7 @@ const ArtCollectionDashboard: React.FC = () => {
             }}
           />
           <Legend wrapperStyle={{ color: "#FFFFFF" }} />
-          <Bar dataKey="count" fill="#82ca9d" name="Number of Items" />
+          <Bar dataKey="count" fill="#82ca9d" name="Number of Items" legendType="none" />
         </BarChart>
       </ResponsiveContainer>
     );
