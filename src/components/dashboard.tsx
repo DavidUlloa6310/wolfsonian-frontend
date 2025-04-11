@@ -216,15 +216,12 @@ const ArtCollectionDashboard: React.FC = () => {
       }
     });
 
-    // Convert to array and sort by decade
+    // Convert to array and sort by count (instead of decade)
     const sortedDecades = Object.entries(decadeCounts)
       .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => {
-        // Extract the decade number for sorting
-        const decadeA = parseInt(a.name);
-        const decadeB = parseInt(b.name);
-        return decadeA - decadeB;
-      });
+      .sort((a, b) => b.count - a.count) // Sort by count in descending order
+      .slice(0, 10) // Get only top 10
+      .filter((item) => item.name && !isNaN(item.count) && item.count > 0);
 
     return sortedDecades;
   };
@@ -343,7 +340,7 @@ const ArtCollectionDashboard: React.FC = () => {
   // Original renderPieChart function with updated text color
   const renderPieChart = (): JSX.Element => {
     return (
-      <ResponsiveContainer width="100%" height={500}>
+      <ResponsiveContainer width="100%" height={550}>
         <PieChart>
           <Pie
             data={chartData}
@@ -428,7 +425,12 @@ const ArtCollectionDashboard: React.FC = () => {
             }}
           />
           <Legend wrapperStyle={{ color: "#FFFFFF" }} />
-          <Bar dataKey="count" fill="#82ca9d" name="Number of Items" legendType="none" />
+          <Bar
+            dataKey="count"
+            fill="#82ca9d"
+            name="Number of Items"
+            legendType="none"
+          />
         </BarChart>
       </ResponsiveContainer>
     );
@@ -441,7 +443,7 @@ const ArtCollectionDashboard: React.FC = () => {
       case "classification":
         return "Top 10 Classifications in the Collection";
       case "year":
-        return "Publication Years Distribution";
+        return "Top 10 Publication Years Distribution";
       case "location":
         return "Top 10 Publication Locations";
       case "physical_form":
@@ -563,8 +565,10 @@ const ArtCollectionDashboard: React.FC = () => {
 
                 <div className="relative z-10 bg-white/10 backdrop-blur-sm p-4 rounded-lg">
                   {chartData.length > 0 ? (
-                    selectedFeature === "year" ? (
+                    selectedFeature === "year" && chartType === "bar" ? (
                       renderYearChart()
+                    ) : selectedFeature === "year" && chartType === "pie" ? (
+                      renderPieChart() // The pie chart should be able to handle year data
                     ) : chartType === "pie" ? (
                       renderPieChart()
                     ) : (
