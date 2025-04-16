@@ -363,7 +363,7 @@ const ArtCollectionDashboard: React.FC = () => {
   // Original renderBarChart function with updated text color
   const renderBarChart = (): JSX.Element => {
     return (
-      <ResponsiveContainer width="100%" height={600}>
+      <ResponsiveContainer width="100%" height={700}>
         <BarChart
           data={chartData}
           margin={{ top: 50, right: 30, left: 20, bottom: 150 }}
@@ -411,10 +411,8 @@ const ArtCollectionDashboard: React.FC = () => {
   // Original renderPieChart function with updated text color
   const renderPieChart = (): JSX.Element => {
     return (
-      <ResponsiveContainer width="100%" height={600}>
-        <PieChart
-          margin={{ top: 0, right: 40, bottom: 50, left: 40 }}
-          >
+      <ResponsiveContainer width="100%" height={700}>
+        <PieChart margin={{ top: 0, right: 40, bottom: 50, left: 40 }}>
           <Pie
             data={chartData}
             dataKey="count"
@@ -463,7 +461,7 @@ const ArtCollectionDashboard: React.FC = () => {
   // Original renderYearChart function with updated text color
   const renderYearChart = (): JSX.Element => {
     return (
-      <ResponsiveContainer width="100%" height={600}>
+      <ResponsiveContainer width="100%" height={700}>
         <BarChart
           layout="vertical"
           data={chartData}
@@ -508,6 +506,164 @@ const ArtCollectionDashboard: React.FC = () => {
     );
   };
 
+  function getFacetContent(selectedFeature) {
+    switch (selectedFeature) {
+      case "genre":
+        return {
+          image: "/images/Genre-Magic Dials.jpg",
+          link: "https://digital.wolfsonian.org/WOLF072308",
+          description: (
+            <div className="text-xs">
+              Book, <span className="font-bold italic">
+                Magic dials: the story of radio and television
+              </span>
+              , 1939
+              <br />
+              Lowell Thomas (American, 1892–1981)
+              <br />
+              New York
+              <br />
+              Illustrations (some color), Front Piece Portrait
+              <br />
+              The Wolfsonian–FIU, The Mitchell Wolfson, Jr. Collection,
+              XB1990.1367
+            </div>
+          ),
+        };
+      case "classification":
+        return {
+          image: "/images/Classification-LeBalcon.jpg",
+          link: "https://digital.wolfsonian.org/WOLF015320",
+          description: (
+            <div className="text-xs">
+              Painting, <span className="font-bold italic">Le Balcon</span> [The
+              Balcony], 1923
+              <br />
+              Henry Meylan (Swiss, 1895-1980)
+              <br />
+              Switzerland Geneva
+              <br />
+              Fine Arts, Oil on Canvas
+              <br />
+              The Wolfsonian–FIU, The Mitchell Wolfson, Jr. Collection,
+              TD1990.285.3
+            </div>
+          ),
+        };
+      case "year":
+        return {
+          image: "/images/Date-Shubert Theatre.jpg",
+          link: "https://digital.wolfsonian.org/WOLF031948",
+          description: (
+            <div className="text-xs">
+              Poster,{" "}
+              <span className="font-bold italic">
+                Sam S. Shubert Theatre :44th Street, west of Broadway
+              </span>
+              , 1930 (year approximate)
+              <br />
+              Shubert Theatre Corp.
+              <br />
+              New York
+              <br />
+              Ink
+              <br className="text-gray-600" />
+              The Wolfsonian–FIU, The Mitchell Wolfson, Jr. Collection,
+              XC2005.08.1.15
+            </div>
+          ),
+        };
+      case "location":
+        return {
+          image: "/images/Location-The Architect.jpg",
+          link: "https://digital.wolfsonian.org/WOLF080965",
+          description: (
+            <div className="text-xs">
+              Poster, <span className="font-bold italic">
+                The Architect & The Industrial Arts
+              </span>
+              , 1930 (year approximate)
+              <br />
+              Unknown Artist
+              <br />
+              New York
+              <br />
+              Ink
+              <br />
+              The Wolfsonian–FIU, The Mitchell Wolfson, Jr. Collection,
+              WC2004.12.35.1
+            </div>
+          ),
+        };
+      case "physical_form":
+        return {
+          image: "/images/Materials-Kay Harshberger.jpg",
+          link: "https://digital.wolfsonian.org/WOLF014299",
+          description: (
+            <div className="text-xs">
+              Print, <span className="font-bold italic">Kay Harshberger</span>,
+              Date Unknown
+              <br />
+              Frank MacCoy (Mac) Harshberger Jr. (American, 1901, 1975)
+              <br />
+              Great Britain
+              <br />
+              Ink on paper block
+              <br />
+              The Wolfsonian–FIU, The Mitchell Wolfson, Jr. Collection,
+              TD1989.42.2
+            </div>
+          ),
+        };
+      case "language":
+        return {
+          image: "/images/Language-Army Book.jpg",
+          link: "https://digital.wolfsonian.org/WOLF078031",
+          description: (
+            <div className="text-xs">
+              Diary, <span className="font-bold italic">
+              Reminiscence of a soldier
+              </span>
+              , 1872 (year approximate)
+              <br />
+              Unknown
+              <br />
+              England
+              <br />
+              Manuscript
+              <br />
+              The Wolfsonian–FIU, The Mitchell Wolfson, Jr. Collection,
+              XC2012.08.1.462
+            </div>
+          ),
+        };
+      case "subject":
+        return {
+          image: "/images/Subject-Untitled.jpg",
+          link: "https://digital.wolfsonian.org/WOLF023625",
+          description: (
+            <div className="text-xs">
+              Textile, <span className="font-bold italic">
+                Untitled [Possible textile design with floral motif]
+              </span>
+              , Date Unknown
+              <br />
+              Artur Lakatos (Hungarian, 1880-1968)
+              <br />
+              Hungary
+              <br />
+              Gouache, watercolor and graphite on paper
+              <br />
+              The Wolfsonian–FIU, The Mitchell Wolfson, Jr. Collection,
+              TD1995.2.14
+            </div>
+          ),
+        };
+      default:
+        return null;
+    }
+  }
+
   const getChartTitle = (): string => {
     switch (selectedFeature) {
       case "genre":
@@ -532,19 +688,19 @@ const ArtCollectionDashboard: React.FC = () => {
   const getChartDescription = (): string => {
     switch (selectedFeature) {
       case "genre":
-        return "Top 10 Genres in the Collection Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        return "Showing the top 10 most common genres in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
       case "classification":
-        return "Top 10 Classifications in the Collection Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        return "Showing the top 10 most common classifications in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
       case "year":
-        return "Top 10 Publication Dates in the Collection Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        return "Showing the top 10 most common publication dates in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
       case "location":
-        return "Top 10 Geographic Origins of the Collection Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        return "Showing the top 10 most common geographic origins in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
       case "physical_form":
-        return "Top 10 Physical Materials in the Collection Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        return "Showing the top 10 most common materials in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
       case "language":
-        return "Top 10 Languages in the Collection Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        return "Showing the top 10 most common languages in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
       case "subject":
-        return "Top 10 Subjects in the Collection Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+        return "Showing the top 10 most common subject in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
       default:
         return "Data Visualization";
     }
@@ -552,10 +708,10 @@ const ArtCollectionDashboard: React.FC = () => {
 
   return (
     <div className="font-[Roboto] min-h-screen">
-      <div className="bg-black w-screen h-50 p-4 mb-12">
-        <header className="my-12 text-left max-w-6xl mx-auto">
+      <div className="bg-black w-screen h-40 p-4 mb-10">
+        <header className="my-6 text-left max-w-6xl mx-auto">
           <h1 className="text-5xl font-medium mb-2 text-white tracking-wide">
-            The Wolfsonian Art Collection
+            The Wolfsonian Collection
           </h1>
           <p className="text-white">
             EXPLORING THE PERSUASIVE POWER OF ART AND DESIGN
@@ -571,22 +727,31 @@ const ArtCollectionDashboard: React.FC = () => {
           <div className="text-center p-6 text-red-300">{error}</div>
         ) : (
           <div>
-            <div className="mb-12">
+            <div className="mb-16">
               <h2 className="text-3xl font-medium mb-4">
                 Explore our collection by the numbers
               </h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat
+                Florida International University computer science students
+                developed this digital visualization platform for{" "}
+                <a className="font-bold" href="https://wolfsonian.org/">
+                  the Wolfsonian–FIU
+                </a>{" "}
+                as their Capstone project. The platform offers visitors a unique
+                way to explore the museum's collection by visualizing it across
+                genres, classifications, publication dates, geographic origins,
+                materials, languages, and subjects. Users gain insights into our
+                areas of focus through this interactive tool, which transforms
+                complex collections data into accessible information and
+                demonstrates how visual representation can illuminate large
+                collections.
               </p>
             </div>
             <div className="grid grid-cols-[1fr_3fr] gap-x-[6%] gap-y-0">
               <div className="block">
                 <h3 className="text-xl font-bold">Selected Facets</h3>
                 <hr className="h-px bg-gray-200 border-0 mt-2 mb-4"></hr>
-                <div className="space-y-3">
+                <div className="space-y-3 m">
                   {[
                     { label: "Genres", value: "genre" },
                     { label: "Classifications", value: "classification" },
@@ -613,7 +778,7 @@ const ArtCollectionDashboard: React.FC = () => {
                         }
                       />
                       <span
-                        className={`text-lg ${
+                        className={`text-base ${
                           selectedFeature === facet.value
                             ? "font-medium text-black"
                             : "text-gray-700"
@@ -623,6 +788,29 @@ const ArtCollectionDashboard: React.FC = () => {
                       </span>
                     </label>
                   ))}
+                </div>
+                <div className="mt-6">
+                  <h3 className="text-xl font-bold">Featured Item</h3>
+                  <hr className="h-px bg-gray-200 border-0 mt-2 mb-4"></hr>
+                  {(() => {
+                    const content = getFacetContent(selectedFeature);
+                    if (content) {
+                      return (
+                        <>
+                          <a href={content.link} target="_blank">
+                            <img
+                              src={content.image}
+                              alt="Featured Item"
+                              className="w-full h-auto mb-4"
+                            />
+                          </a>
+                          <div>{content.description}</div>
+                        </>
+                      );
+                    } else {
+                      return <p>No featured item for this selection.</p>;
+                    }
+                  })()}
                 </div>
               </div>
 
