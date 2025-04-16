@@ -66,15 +66,15 @@ const ArtCollectionDashboard: React.FC = () => {
 
   const COLORS = [
     "#000000", // Black
-    "#282828", // Very dark gray
-    "#424242", // Dark gray
-    "#464646", // Dark gray (slightly lighter)
-    "#646464", // Medium gray
-    "#898989", // Gray
-    "#929292", // Light gray
-    "#B0B0B0", // Lighter gray
-    "#D4D4D4", // Very light gray
-    "#E9E9E9", // Off-white
+    "#2C3E50", // Dark blue/slate
+    "#7F8C8D", // Medium gray with blue undertone
+    "#34495E", // Darker blue/slate
+    "#8E44AD", // Dark purple
+    "#2980B9", // Medium blue
+    "#16A085", // Teal
+    "#27AE60", // Dark green
+    "#F39C12", // Orange
+    "#C0392B", // Dark red
   ];
 
   useEffect(() => {
@@ -360,55 +360,6 @@ const ArtCollectionDashboard: React.FC = () => {
     return sortedSubjects;
   };
 
-  // Original renderBarChart function with updated text color
-  const renderBarChart = (): JSX.Element => {
-    return (
-      <ResponsiveContainer width="100%" height={700}>
-        <BarChart
-          data={chartData}
-          margin={{ top: 50, right: 30, left: 20, bottom: 150 }}
-        >
-          <XAxis
-            dataKey="name"
-            tick={{ fill: "#000000" }} // Changed from #fbefcb to #FFFFFF (white)
-            interval={0}
-            angle={-45}
-            textAnchor="end"
-            tickLine={{ stroke: "#000000" }} // Changed to white
-            axisLine={{ stroke: "#000000" }} // Changed to white
-          />
-          <YAxis
-            tick={{ fill: "#000000" }} // Changed from #fbefcb to #FFFFFF (white)
-            tickLine={{ stroke: "#000000" }} // Changed to white
-            axisLine={{ stroke: "#000000" }} // Changed to white
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "#000000",
-              border: "1px solid #FFFFFF",
-              color: "#000000", // Changed to white
-            }}
-            itemStyle={{ color: "#FFFFFF" }} // Changed to white
-            labelStyle={{
-              color: "#FFFFFF",
-              fontWeight: "bold",
-              marginBottom: "5px",
-            }}
-          />
-          <Legend wrapperStyle={{ color: "#000000" }} />
-          <Bar
-            dataKey="count"
-            name="Number of Items"
-            fill="##FF0000"
-            radius={[0, 0, 0, 0]}
-            legendType="none"
-          />
-        </BarChart>
-      </ResponsiveContainer>
-    );
-  };
-
-  // Original renderPieChart function with updated text color
   const renderPieChart = (): JSX.Element => {
     return (
       <ResponsiveContainer width="100%" height={700}>
@@ -423,12 +374,12 @@ const ArtCollectionDashboard: React.FC = () => {
             label={({ name, percent }) =>
               `${name}: ${(percent * 100).toFixed(0)}%`
             }
-            labelLine={{ strokeWidth: 1 }} // Changed to white
+            labelLine={{ stroke: "#000000", strokeWidth: 1 }}
           >
             {chartData.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill="#000000"
+                fill={COLORS[index % COLORS.length]}
                 stroke="#FFFFFF"
                 strokeWidth={1}
               />
@@ -436,29 +387,74 @@ const ArtCollectionDashboard: React.FC = () => {
           </Pie>
           <Tooltip
             contentStyle={{
-              backgroundColor: "#000000",
-              border: "1px solid #FFFFFF",
-              color: "#FFFFFF", // Changed to white
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #000000",
+              color: "#000000",
             }}
-            itemStyle={{ color: "#FFFFFF" }} // Changed to white
+            itemStyle={{ color: "#000000" }}
             labelStyle={{
-              color: "#FFFFFF",
+              color: "#000000",
               fontWeight: "bold",
               marginBottom: "5px",
             }}
           />
-          <Legend
-            wrapperStyle={{ color: "#000000" }} // Changed to white
-            formatter={(value) => (
-              <span style={{ color: "#000000" }}>{value}</span> // Changed to white
-            )}
-          />
+          {/* Legend has been removed */}
         </PieChart>
       </ResponsiveContainer>
     );
   };
 
-  // Original renderYearChart function with updated text color
+  const renderBarChart = (): JSX.Element => {
+    return (
+      <ResponsiveContainer width="100%" height={700}>
+        <BarChart data={chartData}>
+          <XAxis
+            dataKey="name"
+            tick={{ fill: "#000000", fontSize: 12 }}
+            interval={0}
+            angle={-65} // Steeper angle for labels
+            textAnchor="end"
+            tickLine={{ stroke: "#000000" }}
+            axisLine={{ stroke: "#000000" }}
+            height={150} // Much larger height for x-axis
+          />
+          <YAxis
+            tick={{ fill: "#000000" }}
+            tickLine={{ stroke: "#000000" }}
+            axisLine={{ stroke: "#000000" }}
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #000000",
+              color: "#000000",
+            }}
+            itemStyle={{ color: "#000000" }}
+            labelStyle={{
+              color: "#000000",
+              fontWeight: "bold",
+              marginBottom: "5px",
+            }}
+          />
+          <Bar
+            dataKey="count"
+            name="Number of Items"
+            fill={COLORS[0]}
+            radius={[0, 0, 0, 0]}
+          >
+            {chartData.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    );
+  };
+
+  // Original renderYearChart function with updated fill color
   const renderYearChart = (): JSX.Element => {
     return (
       <ResponsiveContainer width="100%" height={700}>
@@ -469,38 +465,44 @@ const ArtCollectionDashboard: React.FC = () => {
         >
           <XAxis
             type="number"
-            tick={{ fill: "#000000" }} // Changed from default to white
-            tickLine={{ stroke: "#000000" }} // Added white tick lines
-            axisLine={{ stroke: "#000000" }} // Added white axis line
+            tick={{ fill: "#000000" }}
+            tickLine={{ stroke: "#000000" }}
+            axisLine={{ stroke: "#000000" }}
           />
           <YAxis
             dataKey="name"
             type="category"
-            tick={{ fill: "#000000" }} // Changed from #666 to white
+            tick={{ fill: "#000000" }}
             width={80}
-            tickLine={{ stroke: "#000000" }} // Added white tick lines
-            axisLine={{ stroke: "#000000" }} // Added white axis line
+            tickLine={{ stroke: "#000000" }}
+            axisLine={{ stroke: "#000000" }}
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#000000",
-              border: "1px solid #FFFFFF",
-              color: "#FFFFFF", // Changed to white
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #000000",
+              color: "#000000",
             }}
-            itemStyle={{ color: "#FFFFFF" }} // Changed to white
+            itemStyle={{ color: "#000000" }}
             labelStyle={{
-              color: "#FFFFFF",
+              color: "#000000",
               fontWeight: "bold",
               marginBottom: "5px",
             }}
           />
-          <Legend wrapperStyle={{ color: "#FFFFFF" }} />
+          <Legend wrapperStyle={{ color: "#000000" }} />
           <Bar
             dataKey="count"
-            fill="#000000"
             name="Number of Items"
-            legendType="none"
-          />
+            fill={COLORS[0]} // Using the first color from the COLORS array
+          >
+            {chartData.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     );
@@ -514,7 +516,8 @@ const ArtCollectionDashboard: React.FC = () => {
           link: "https://digital.wolfsonian.org/WOLF072308",
           description: (
             <div className="text-xs">
-              Book, <span className="font-bold italic">
+              Book,{" "}
+              <span className="font-bold italic">
                 Magic dials: the story of radio and television
               </span>
               , 1939
@@ -579,7 +582,8 @@ const ArtCollectionDashboard: React.FC = () => {
           link: "https://digital.wolfsonian.org/WOLF080965",
           description: (
             <div className="text-xs">
-              Poster, <span className="font-bold italic">
+              Poster,{" "}
+              <span className="font-bold italic">
                 The Architect & The Industrial Arts
               </span>
               , 1930 (year approximate)
@@ -621,8 +625,9 @@ const ArtCollectionDashboard: React.FC = () => {
           link: "https://digital.wolfsonian.org/WOLF078031",
           description: (
             <div className="text-xs">
-              Diary, <span className="font-bold italic">
-              Reminiscence of a soldier
+              Diary,{" "}
+              <span className="font-bold italic">
+                Reminiscence of a soldier
               </span>
               , 1872 (year approximate)
               <br />
@@ -643,7 +648,8 @@ const ArtCollectionDashboard: React.FC = () => {
           link: "https://digital.wolfsonian.org/WOLF023625",
           description: (
             <div className="text-xs">
-              Textile, <span className="font-bold italic">
+              Textile,{" "}
+              <span className="font-bold italic">
                 Untitled [Possible textile design with floral motif]
               </span>
               , Date Unknown
