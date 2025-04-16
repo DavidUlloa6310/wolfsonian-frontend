@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, JSX } from "react";
+import Image from "next/image";
 import {
   BarChart,
   Bar,
@@ -715,13 +716,47 @@ const ArtCollectionDashboard: React.FC = () => {
   return (
     <div className="font-[Roboto] min-h-screen">
       <div className="bg-black w-screen h-40 p-4 mb-10">
-        <header className="my-6 text-left max-w-6xl mx-auto">
-          <h1 className="text-5xl font-medium mb-2 text-white tracking-wide">
-            The Wolfsonian Collection
-          </h1>
-          <p className="text-white">
-            EXPLORING THE PERSUASIVE POWER OF ART AND DESIGN
-          </p>
+        <header className="my-6 text-left max-w-6xl mx-auto flex flex-col">
+          <div>
+            <img
+              src="./fiu_wolfsonian_logo.png"
+              width="300"
+              height="125"
+              alt="FIU Wolfsonian"
+            />
+          </div>
+          <nav className="flex flex-row text-white text-lg uppercase gap-x-8 pt-4">
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/">Home</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/visit/">Visit</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/whats-on/">What&apos;s On</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/youth+family/">Youth + Family</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/research/">Research</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/fiu/">FIU</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/blog/">Blog</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/join-give/">Join + Give</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/expansion/">Expansion</a>
+            </h2>
+            <h2 className="hover:cursor-pointer hover:underline">
+              <a href="https://wolfsonian.org/about/">About</a>
+            </h2>
+          </nav>
         </header>
       </div>
       <div className="max-w-6xl mx-auto">
