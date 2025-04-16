@@ -214,24 +214,30 @@ const ArtCollectionDashboard: React.FC = () => {
         if (yearMatch) {
           const year = parseInt(yearMatch[0]);
           // Group into decades (1900s, 1910s, etc.)
-          const decade = Math.floor(year / 10) * 10;
-          const decadeLabel = `${decade}s`;
+          if (year < 2025) {
+            const decade = Math.floor(year / 10) * 10;
+            const decadeLabel = `${decade}s`;
 
-          if (decadeCounts[decadeLabel]) {
-            decadeCounts[decadeLabel]++;
-          } else {
-            decadeCounts[decadeLabel] = 1;
+            if (decadeCounts[decadeLabel]) {
+              decadeCounts[decadeLabel]++;
+            } else {
+              decadeCounts[decadeLabel] = 1;
+            }
           }
         }
       }
     });
 
-    // Convert to array and sort by count (instead of decade)
+    // Convert to array and sort by decade (chronologically) instead of count
     const sortedDecades = Object.entries(decadeCounts)
       .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count) // Sort by count in descending order
-      .slice(0, 10) // Get only top 10
-      .filter((item) => item.name && !isNaN(item.count) && item.count > 0);
+      .filter((item) => item.name && !isNaN(item.count) && item.count > 0)
+      .sort((a, b) => {
+        // Extract the numeric part of the decade label for sorting
+        const decadeA = parseInt(a.name);
+        const decadeB = parseInt(b.name);
+        return decadeA - decadeB; // Sort in ascending order
+      });
 
     return sortedDecades;
   };
@@ -695,19 +701,19 @@ const ArtCollectionDashboard: React.FC = () => {
   const getChartDescription = (): string => {
     switch (selectedFeature) {
       case "genre":
-        return "Showing the top 10 most common genres in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
+        return "This visualization highlights the predominant art and design genres in the Wolfsonian collection. Genres represent the categories of artistic expression, such as propaganda, advertising, architectural design, and illustration. These classifications help reveal how art and design were used to communicate ideas across different periods. The predominance of certain genres reflects the museum's focus on objects that demonstrate the persuasive power of art and design.";
       case "classification":
-        return "Showing the top 10 most common classifications in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
+        return "Classifications categorize items by their fundamental type or purpose, showing the range of creative works in the collection. This includes fine arts (paintings, sculptures), decorative arts (furniture, ceramics), graphic design, architectural drawings, and industrial design. The distribution reveals the Wolfsonian's distinctive focus on the intersection of art, design, and propaganda during the modern era.";
       case "year":
-        return "Showing the top 10 most common publication dates in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
+        return "This chart displays the chronological distribution of the collection by decade, arranged in historical sequence (not by quantity). While the collection spans from the late 19th century to 2025, the Wolfsonian has a particular focus on the period from 1885 to 1945 - the height of the industrial age through World War II. This core timeframe represents a critical period when design and propaganda became powerful tools for social and political transformation, reflecting the museum's mission to explore how design shapes and reflects human experience. Any items with dates beyond the current year have been excluded as they likely represent cataloging errors.";
       case "location":
-        return "Showing the top 10 most common geographic origins in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
+        return "Geographic origins show where items in the collection were created, highlighting the Wolfsonian's international scope. The distribution reveals the museum's focus on major centers of design innovation and propaganda production during the industrial age and wartime periods. This geographic diversity helps visitors understand how different cultures used art and design as tools of persuasion and national identity during pivotal historical moments.";
       case "physical_form":
-        return "Showing the top 10 most common materials in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
+        return "Materials and physical forms reveal the diverse media used by artists and designers represented in the collection. From traditional materials like paper, wood, and metal to innovative industrial materials of the modern era, these categories demonstrate how creators adapted their techniques to new manufacturing processes. The prevalence of certain materials reflects both artistic trends and the technological capabilities of different periods.";
       case "language":
-        return "Showing the top 10 most common languages in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
+        return "Language distribution in the collection reveals both the international scope of the Wolfsonian and the global influence of different cultures during the modern era. Printed materials, books, posters, and ephemera in various languages demonstrate how art and propaganda transcended national boundaries. This linguistic diversity helps contextualize the global conversations and conflicts that shaped design movements across borders.";
       case "subject":
-        return "Showing the top 10 most common subject in the collection. Use the Bar Chart or Pie Chart tabs to explore different visualizations. Hover over the chart to see the exact number of items per category.";
+        return "Subject matter categories reveal the thematic focus of works in the collection, from political movements and industrial progress to social change and cultural identity. These subjects reflect the Wolfsonian's emphasis on how art and design were used to persuade and influence across different spheres of human activity. The prevalence of certain themes helps visitors understand the major concerns and aspirations of societies during periods of rapid transformation.";
       default:
         return "Data Visualization";
     }
