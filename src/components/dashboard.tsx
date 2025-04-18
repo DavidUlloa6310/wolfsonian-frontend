@@ -784,14 +784,13 @@ const ArtCollectionDashboard: React.FC = () => {
                 <a className="font-bold" href="https://wolfsonian.org/">
                   the Wolfsonian–FIU
                 </a>{" "}
-                as their Capstone project. The platform offers visitors a unique
-                way to explore the museum's collection by visualizing it across
-                genres, classifications, publication dates, geographic origins,
-                materials, languages, and subjects. Users gain insights into our
-                areas of focus through this interactive tool, which transforms
-                complex collections data into accessible information and
-                demonstrates how visual representation can illuminate large
-                collections.
+                as their Capstone project. The platform lets visitors explore
+                the museum&apos;s collection by visualizing it across genres,
+                classifications, publication dates, geographic origins,
+                materials, languages, and subjects. Through this interactive
+                tool, users gain insights into our focus areas. It transforms
+                complex collections data into accessible information and shows
+                how visual representation can illuminate large collections.
               </p>
             </div>
             <div className="grid grid-cols-[1fr_3fr] gap-x-[6%] gap-y-0">
